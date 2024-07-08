@@ -72,3 +72,48 @@ int main()
     stack.traversal();
 }
 ```
+### Expression Evaluation
+```c++
+#include <iostream>
+#include <stack>
+#include <map>
+using namespace std;
+
+bool evaluateExpression(string expr)
+{
+    stack<char> stack;
+    map<char, char> mp;
+    mp[']'] = '[';
+    mp[')'] = '(';
+    mp['}'] = '{';
+    for (int i = 0; i < expr.length(); i++)
+    {
+        if (expr[i] == '(' || expr[i] == '{' || expr[i] == '[')
+        {
+            stack.push(expr[i]);
+        }
+        else if (mp.count(expr[i]) > 0)
+        {
+            if (stack.empty())
+                return false;
+            if (mp[expr[i]] != stack.top())
+                return false;
+            stack.pop();
+        }
+        else
+        {
+            continue;
+        }
+    }
+    if (stack.empty())
+        return true;
+    return false;
+}
+
+int main()
+{
+    cout << evaluateExpression("(x+5)[{}] + 2") << endl;
+}
+```
+
+
