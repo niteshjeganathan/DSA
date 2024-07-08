@@ -116,4 +116,71 @@ int main()
 }
 ```
 
+### Infix to Postfix
+```c++
+#include <iostream>
+#include <stack>
+#include <map>
+using namespace std;
+
+string convertToPostfix(string expr)
+{
+    map<char, int> precedence{{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}, {'^', 3}, {'(', 0}};
+    stack<char> operators;
+    string res = "";
+
+    for (int i = 0; i < expr.length(); i++)
+    {
+        if (precedence.count(expr[i]) > 0)
+        {
+            if (operators.empty())
+            {
+                operators.push(expr[i]);
+                continue;
+            }
+
+            if (precedence[operators.top()] < precedence[expr[i]] || (expr[i] == '^' && operators.top() == '^'))
+            {
+                operators.push(expr[i]);
+                continue;
+            }
+
+            if (precedence[operators.top()] >= precedence[expr[i]] && expr[i] != '^')
+            {
+                while (!operators.empty() && precedence[operators.top()] >= precedence[expr[i]])
+                {
+                    res += operators.top();
+                    operators.pop();
+                }
+                operators.push(expr[i]);
+                continue;
+            }
+        }
+        else if (expr[i] == ')')
+        {
+            while (operators.top() != '(')
+            {
+                res += operators.top();
+                operators.pop();
+            }
+            operators.pop();
+        }
+        else
+        {
+            res += expr[i];
+        }
+    }
+    while (!operators.empty())
+    {
+        res += operators.top();
+        operators.pop();
+    }
+    return res;
+}
+
+int main()
+{
+    cout << convertToPostfix("(3+5*2)*5") << endl;
+}
+```
 
