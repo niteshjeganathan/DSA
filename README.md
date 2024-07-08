@@ -24,4 +24,51 @@
 ![image](https://github.com/niteshjeganathan/DSA/assets/89623604/dba5fa15-ff9d-4fa0-8571-dee32304eb78)
 
 ## Linear Data Structures
+### Stack
+* LIFO ( Last in First Out )
+* Can be inserted/deleted at the top of the stack
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
 
+class Stack
+{
+private:
+    vector<int> stack;
+    int top = -1;
+
+public:
+    void push(int x)
+    {
+        stack.push_back(x);
+        top++;
+    }
+
+    int pop()
+    {
+        int value = stack.back();
+        stack.pop_back();
+        top--;
+        return value;
+    }
+
+    void traversal()
+    {
+        for (int i = 0; i <= top; i++)
+        {
+            cout << stack[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    Stack stack;
+    stack.push(5);
+    stack.push(10);
+    stack.pop();
+    stack.traversal();
+}
+```
