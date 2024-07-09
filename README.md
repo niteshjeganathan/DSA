@@ -260,3 +260,27 @@ int main()
     cout << convertToPrefix("5^4^3") << endl;
 }
 ```
+
+### Towers of Hanoi
+[https://www.youtube.com/watch?v=rf6uf3jNjbo]
+```c++
+#include <iostream>
+using namespace std;
+
+void towerOfHanoi(int n, char from, char to, char aux)
+{
+    if (n == 0)
+    {
+        return;
+    }
+
+    towerOfHanoi(n - 1, from, aux, to);
+    cout << "Move disk " << (n - 1) << " from rod " << from << " to rod " << to << endl;
+    towerOfHanoi(n - 1, aux, to, from);
+}
+
+int main()
+{
+    towerOfHanoi(3, 'A', 'C', 'B');
+}
+```
