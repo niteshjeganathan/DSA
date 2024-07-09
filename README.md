@@ -2,6 +2,7 @@
 ## Index
 * [Algorithm Analysis](#algorithm-analysis)
 * [Stack and its applications](#stack)
+* [Queue and its types](#queue)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
@@ -284,3 +285,117 @@ int main()
     towerOfHanoi(3, 'A', 'C', 'B');
 }
 ```
+
+### Queue
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Queue
+{
+private:
+    vector<int> queue;
+    int front = -1;
+
+public:
+    void enqueue(int x)
+    {
+        if (front == -1)
+        {
+            front++;
+        }
+        queue.push_back(x);
+    }
+
+    void dequeue()
+    {
+        front++;
+    }
+
+    void traversal()
+    {
+        for (int i = front; i < queue.size(); i++)
+        {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    Queue queue;
+    queue.enqueue(5);
+    queue.enqueue(10);
+    queue.enqueue(15);
+    queue.dequeue();
+    queue.dequeue();
+    queue.traversal();
+}
+```
+
+### Doubly Ended Queue
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Queue
+{
+private:
+    vector<int> queue;
+    int front = -1;
+
+public:
+    void insertEnd(int x)
+    {
+        if (front == -1)
+        {
+            front++;
+        }
+        queue.push_back(x);
+    }
+
+    void insertAtBeginning(int x)
+    {
+        if (front == -1)
+        {
+            front++;
+        }
+        queue.insert(queue.begin(), x);
+    }
+
+    void traversal()
+    {
+        for (int i = front; i < queue.size(); i++)
+        {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
+    }
+
+    void removeAtEnd()
+    {
+        queue.pop_back();
+    }
+
+    void removeAtBeginning()
+    {
+        front++;
+    }
+};
+
+int main()
+{
+    Queue queue;
+    queue.insertAtBeginning(5);
+    queue.insertEnd(10);
+    queue.insertAtBeginning(1);
+    queue.insertEnd(15);
+    queue.removeAtBeginning();
+    queue.removeAtEnd();
+    queue.traversal();
+}
+```
+
