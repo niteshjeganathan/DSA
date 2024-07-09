@@ -123,6 +123,8 @@ int main()
 #include <map>
 using namespace std;
 
+// Higher precedence can sit on top of the stack
+// If right associativity, like ^, when equal operators, we won't pop out
 string convertToPostfix(string expr)
 {
     map<char, int> precedence{{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}, {'^', 3}, {'(', 0}};
