@@ -1,6 +1,7 @@
 # DSA
 ## Index
 * [Algorithm Analysis](#algorithm-analysis)
+* [Stack and its applications](#stack)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
