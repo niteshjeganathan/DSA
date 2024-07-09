@@ -186,3 +186,74 @@ int main()
 }
 ```
 
+### Infix to Prefix
+```c++
+#include <iostream>
+#include <stack>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+// If higher precedence or equal precendence (except ^ ), then add to stack
+// If equal precedence and ^ or lower precendence, then pop till condition doesn't exist so
+string convertToPrefix(string expr)
+{
+    stack<int> operators;
+    map<char, int> precedence{{'+', 1}, {'-', 1}, {'*', 2}, {'/', 2}, {'^', 3}, {')', 0}};
+    string res = "";
+
+    for (int i = expr.length() - 1; i >= 0; i--)
+    {
+        if (precedence.count(expr[i]) > 0)
+        {
+            if (operators.empty())
+            {
+                operators.push(expr[i]);
+                continue;
+            }
+
+            if (precedence[operators.top()] < precedence[expr[i]] || (expr[i] != '^' && operators.top() == expr[i]))
+            {
+                operators.push(expr[i]);
+                continue;
+            }
+
+            if (precedence[operators.top()] > precedence[expr[i]] || (expr[i] == '^' && operators.top() == '^'))
+            {
+                while (!operators.empty() && (precedence[operators.top()] > precedence[expr[i]] || (expr[i] == '^' && operators.top() == '^')))
+                {
+                    res += operators.top();
+                    operators.pop();
+                }
+                operators.push(expr[i]);
+                continue;
+            }
+        }
+        else if (expr[i] == '(')
+        {
+            while (operators.top() != ')')
+            {
+                res += operators.top();
+                operators.pop();
+            }
+            operators.pop();
+        }
+        else
+        {
+            res += expr[i];
+        }
+    }
+    while (!operators.empty())
+    {
+        res += operators.top();
+        operators.pop();
+    }
+    reverse(res.begin(), res.end());
+    return res;
+}
+
+int main()
+{
+    cout << convertToPrefix("5^4^3") << endl;
+}
+```
