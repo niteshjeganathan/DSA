@@ -399,3 +399,119 @@ int main()
 }
 ```
 
+### Linked List
+```c++
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int value;
+    Node *next;
+
+    Node(int x)
+    {
+        value = x;
+        next = NULL;
+    }
+};
+
+class LinkedList
+{
+private:
+    Node *head;
+
+public:
+    LinkedList()
+    {
+        head = NULL;
+    }
+
+    void insert(int x)
+    {
+        if (!head)
+        {
+            head = new Node(x);
+            return;
+        }
+
+        Node *curr = head;
+        while (curr->next != NULL)
+        {
+            curr = curr->next;
+        }
+
+        curr->next = new Node(x);
+    }
+
+    void traverse()
+    {
+        Node *curr = head;
+        while (curr)
+        {
+            cout << curr->value << " ";
+            curr = curr->next;
+        }
+        cout << endl;
+    }
+
+    void insertAtBeginning(int x)
+    {
+        if (!head)
+        {
+            head = new Node(x);
+            return;
+        }
+
+        Node *curr = new Node(x);
+        curr->next = head;
+        head = curr;
+    }
+
+    void remove(int x)
+    {
+        if (head->value == x)
+        {
+            Node *temp = head;
+            head = head->next;
+            delete (temp);
+            return;
+        }
+
+        Node *curr = head;
+
+        while (curr->next->next)
+        {
+            if (curr->next->value == x)
+            {
+                Node *temp = curr->next;
+                curr->next = temp->next;
+                delete (temp);
+                return;
+            }
+            curr = curr->next;
+        }
+
+        if (curr->next->value == x)
+        {
+            Node *temp = curr->next;
+            curr->next = NULL;
+            delete (temp);
+        }
+    }
+};
+
+int main()
+{
+    LinkedList list;
+
+    list.insert(5);
+    list.insert(10);
+    list.insertAtBeginning(1);
+    list.remove(10);
+
+    list.traverse();
+
+    return 0;
+}
+```
