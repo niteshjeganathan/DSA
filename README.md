@@ -3,7 +3,7 @@
 * [Algorithm Analysis](#algorithm-analysis)
 * [Stack and its applications](#stack)
 * [Queue and its types](#queue)
-* [Linked List](#linked=list)
+* [Linked List](#linked-list)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
