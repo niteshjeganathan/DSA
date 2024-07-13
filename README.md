@@ -520,6 +520,10 @@ int main()
 
 ## Searching and Sorting
 ### Linear Search
+* Time Complexity
+  * Best Case Scenario: O(1)
+  * Average Case Scenario: O(n)
+  * Worst Case Scenario: O(n)
 ```c++
 #include <iostream>
 #include <vector>
@@ -546,4 +550,79 @@ int main()
 ```
 
 ### Binary Search
+* Time Complexity:
+  * Best Case Scenario: O(1)
+  * Average Case Scenario: O(log(n))
+  * Worst Case Scenario: O(log(n))
+```c++
+//Approach 1: Iterative
+#include <iostream>
+#include <vector>
+using namespace std;
 
+int binarySearch(vector<int> array, int value)
+{
+    int low = 0;
+    int high = array.size() - 1;
+    int mid;
+
+    while (low <= high)
+    {
+        mid = (low + high) / 2;
+        if (array[mid] < value)
+        {
+            low = mid + 1;
+        }
+        else if (array[mid] > value)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            return mid;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    vector<int> array{1, 2, 3, 4, 5};
+    cout << binarySearch(array, 3);
+    return 0;
+}
+
+//Approach 2: Recursive
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int BinarySearch(vector<int> array, int value, int low, int high)
+{
+    if (low <= high)
+    {
+        int mid = (low + high) / 2;
+
+        if (array[mid] < value)
+        {
+            return BinarySearch(array, value, mid + 1, high);
+        }
+        else if (array[mid] > value)
+        {
+            return BinarySearch(array, value, low, mid - 1);
+        }
+        else
+        {
+            return mid;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    vector<int> array{1, 2, 3, 4, 5};
+    cout << BinarySearch(array, 4, 0, 4) << endl;
+    return 0;
+}
+```
