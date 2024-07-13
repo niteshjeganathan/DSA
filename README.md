@@ -516,3 +516,34 @@ int main()
     return 0;
 }
 ```
+
+
+## Searching and Sorting
+### Linear Search
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int linearSearch(vector<int> array, int value)
+{
+    for (int i = 0; i < array.size(); i++)
+    {
+        if (array[i] == value)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    vector<int> array{1, 2, 3, 4, 5};
+
+    cout << linearSearch(array, 2);
+}
+```
+
+### Binary Search
+
