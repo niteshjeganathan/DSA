@@ -10,7 +10,8 @@
 * [Bubble Sort](#bubble-sort)
 * [Counting Sort](#counting-sort)
 * [Quick Sort](#quick-sort)
-* [Merge Sort](#binary-search-tree)
+* [Merge Sort](#merge-sort)
+* [Binary Search Tree](#binary-search-tree)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
