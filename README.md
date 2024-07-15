@@ -7,6 +7,8 @@
 * [Linear Search](#linear-search)
 * [Binary Search](#binary-search)
 * [Insertion Sort](#insertion-sort)
+* [Bubble Sort](#bubble-sort)
+* [Quick Sort](#quick-sort)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
