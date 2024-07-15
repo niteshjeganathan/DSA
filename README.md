@@ -882,3 +882,63 @@ int main()
 }
 ```
 
+### Merge Sort
+* Time Complexity
+  * Worst Case - O(nlogn)
+  * Best Case - O(nlogn)
+  * Average Case - O(nlogn)
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void merge(vector<int> &array, int low, int mid, int high)
+{
+    vector<int> left(array.begin() + low, array.begin() + mid + 1);
+    vector<int> right(array.begin() + mid + 1, array.begin() + high + 1);
+
+    int i = 0, j = 0, k = low;
+    while (i < left.size() && j < right.size())
+    {
+        if (left[i] < right[j])
+            array[k++] = left[i++];
+        else
+            array[k++] = right[j++];
+    }
+
+    while (i < left.size())
+        array[k++] = left[i++];
+
+    while (j < right.size())
+        array[k++] = right[j++];
+}
+
+void sort(vector<int> &array, int low, int high)
+{
+    if (low < high)
+    {
+        int mid = (low + high) / 2;
+
+        sort(array, low, mid);
+        sort(array, mid + 1, high);
+
+        merge(array, low, mid, high);
+    }
+}
+
+int main()
+{
+    vector<int> array{4, 5, 2, 1, 3};
+    sort(array, 0, array.size() - 1);
+
+    for (auto i : array)
+    {
+        cout << i << " ";
+    }
+
+    cout << endl;
+    return 0;
+}
+```
+
