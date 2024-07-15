@@ -672,3 +672,51 @@ int main()
     cout << endl;
 }
 ```
+
+### Selection Sort
+* Time Complexity
+  * Best Case - O(n^2)
+  * Average Case - O(n^2)
+  * Worst Case - O(n^2)
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void sort(vector<int> &array)
+{
+    int min;
+    int minIndex;
+
+    for (int i = 0; i < array.size() - 1; i++)
+    {
+        min = array[i];
+        minIndex = i;
+
+        for (int j = i + 1; j < array.size(); j++)
+        {
+            if (array[j] < min)
+            {
+                min = array[j];
+                minIndex = j;
+            }
+        }
+
+        array[minIndex] = array[i];
+        array[i] = min;
+    }
+}
+
+int main()
+{
+    vector<int> array{2, 3, 4, 1, 5};
+
+    sort(array);
+
+    for (auto i : array)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+}
+```
