@@ -6,6 +6,7 @@
 * [Linked List](#linked-list)
 * [Linear Search](#linear-search)
 * [Binary Search](#binary-search)
+* [Insertion Sort](#insertion-sort)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
