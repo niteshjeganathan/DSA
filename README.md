@@ -8,6 +8,7 @@
 * [Binary Search](#binary-search)
 * [Insertion Sort](#insertion-sort)
 * [Bubble Sort](#bubble-sort)
+* [Counting Sort](#counting-sort)
 * [Quick Sort](#quick-sort)
 ## Algorithm Analysis
 ### Algorithm
@@ -821,7 +822,7 @@ int main()
 }
 ```
 
-### QuickSort
+### Quick Sort
 * Time Complexity
   * Best Case - O(nlogn)
   * Average Case - O(nlogn)
