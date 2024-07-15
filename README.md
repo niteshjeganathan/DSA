@@ -12,6 +12,7 @@
 * [Quick Sort](#quick-sort)
 * [Merge Sort](#merge-sort)
 * [Binary Search Tree](#binary-search-tree)
+* [Max Heap](#heap-tree)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
@@ -1052,6 +1053,93 @@ int main()
     bst.root = bst.remove(3, bst.root);
 
     bst.inorder(bst.root);
+}
+```
+
+### Heap Tree
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MaxHeap
+{
+private:
+    vector<int> heap;
+
+    void swap(int &a, int &b)
+    {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    void heapifyUp(int index)
+    {
+        int parent = (index - 1) / 2;
+        while (index > 0 && heap[index] > heap[parent])
+        {
+            swap(heap[index], heap[parent]);
+            index = parent;
+            parent = (index - 1) / 2;
+        }
+    }
+
+    void heapifyDown(int index)
+    {
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+        int largest = index;
+
+        if (left < heap.size() && heap[left] > heap[index])
+        {
+            largest = left;
+        }
+
+        if (right < heap.size() && heap[right] > heap[index])
+        {
+            largest = right;
+        }
+
+        if (largest != index)
+        {
+            swap(heap[index], heap[largest]);
+            heapifyDown(largest);
+        }
+    }
+
+public:
+    void insert(int x)
+    {
+        heap.push_back(x);
+        heapifyUp(heap.size() - 1);
+    }
+
+    void remove()
+    {
+        heap[0] = heap.back();
+        heap.pop_back();
+        heapifyDown(0);
+    }
+
+    void traverse()
+    {
+        for (auto i : heap)
+        {
+            cout << i << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    MaxHeap tree;
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(4);
+    tree.traverse();
 }
 ```
 
