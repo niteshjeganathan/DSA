@@ -629,8 +629,45 @@ int main()
 }
 ```
 
-### Radix Sort
+### Insertion Sort
 * Time Complexity
-  * O(d*(n+b))
-  * If log n bits for every digit, it is faster than quick sort
-  * 
+  * Best Case - O(n)
+  * Average Case - O(n^2)
+  * Worst Case - O(n^2)
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void sort(vector<int> &array)
+{
+    int key;
+    int j;
+
+    for (int i = 1; i < array.size(); i++)
+    {
+        j = i - 1;
+        key = array[i];
+
+        while (j >= 0 && array[j] > key)
+        {
+            array[j + 1] = array[j];
+            j--;
+        }
+        array[j + 1] = key;
+    }
+}
+
+int main()
+{
+    vector<int> array{2, 3, 4, 1, 5};
+
+    sort(array);
+
+    for (auto i : array)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+}
+```
