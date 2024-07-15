@@ -720,3 +720,162 @@ int main()
     cout << endl;
 }
 ```
+
+### Bubble Sort
+* Time Complexity
+  * Best Case - O(n)
+  * Average Case - O(n^2)
+  * Worst Case - O(n^2)
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void sort(vector<int> &array)
+{
+    int temp;
+    for (int i = 0; i < array.size() - 1; i++)
+    {
+        for (int j = 1; j < array.size() - i; j++)
+        {
+            if (array[j] < array[j - 1])
+            {
+                temp = array[j - 1];
+                array[j - 1] = array[j];
+                array[j] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    vector<int> array{4, 5, 3, 2, 1};
+    sort(array);
+
+    for (auto i : array)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+    return 0;
+}
+```
+
+### Counting Sort
+* Time Complexity:
+  * Worst Case - O(n + m)
+  * Average Case - O(n + m)
+  * Best Case - O(n + m)
+```c++
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <limits>
+using namespace std;
+
+int max(vector<int> array)
+{
+    int highest = INT_MIN;
+    for (int i = 0; i < array.size(); i++)
+    {
+        highest = max(highest, array[i]);
+    }
+    return highest;
+}
+
+vector<int> sort(vector<int> array)
+{
+    int len = max(array);
+    unordered_map<int, int> map;
+
+    for (auto i : array)
+    {
+        map[i]++;
+    }
+
+    vector<int> res;
+
+    for (int i = 0; i < len + 1; i++)
+    {
+        while (map[i] != 0)
+        {
+            res.push_back(i);
+            map[i]--;
+        }
+    }
+    return res;
+}
+
+int main()
+{
+    vector<int> array{2, 3, 0, 2, 3, 2};
+    array = sort(array);
+
+    for (auto i : array)
+        cout << i << " ";
+    cout << endl;
+}
+```
+
+### QuickSort
+* Time Complexity
+  * Best Case - O(nlogn)
+  * Average Case - O(nlogn)
+  * Worst Case - O(n^2)
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void swap(int &p1, int &p2)
+{
+    int temp = p1;
+    p1 = p2;
+    p2 = temp;
+}
+
+int partition(vector<int> &array, int start, int end)
+{
+    int pivot = array[end];
+
+    int i = start - 1;
+
+    for (int j = i + 1; j < end; j++)
+    {
+        if (array[j] <= pivot)
+        {
+            i++;
+            swap(array[i], array[j]);
+        }
+    }
+    swap(array[i + 1], array[end]);
+
+    return i + 1;
+}
+
+void sort(vector<int> &array, int start, int end)
+{
+    if (start < end)
+    {
+        int p = partition(array, start, end);
+
+        sort(array, start, p - 1);
+        sort(array, p + 1, end);
+    }
+}
+
+int main()
+{
+    vector<int> array{4, 5, 3, 2, 1};
+    sort(array, 0, array.size() - 1);
+    for (auto i : array)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+    return 0;
+}
+```
+
