@@ -10,6 +10,7 @@
 * [Bubble Sort](#bubble-sort)
 * [Counting Sort](#counting-sort)
 * [Quick Sort](#quick-sort)
+* [Merge Sort](#binary-search-tree)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
@@ -939,6 +940,117 @@ int main()
 
     cout << endl;
     return 0;
+}
+```
+
+## Trees
+### Binary Search Tree
+```c++
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int value;
+    Node *left;
+    Node *right;
+
+    Node(int x)
+    {
+        value = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class BST
+{
+public:
+    Node *root;
+
+    BST()
+    {
+        root = NULL;
+    }
+
+    Node *insert(int x, Node *root)
+    {
+        if (!root)
+            return new Node(x);
+
+        if (x < root->value)
+        {
+            root->left = insert(x, root->left);
+        }
+        else
+        {
+            root->right = insert(x, root->right);
+        }
+        return root;
+    }
+
+    void inorder(Node *root)
+    {
+        if (root)
+        {
+            inorder(root->left);
+            cout << root->value << " ";
+            inorder(root->right);
+        }
+    }
+
+    Node *findMin(Node *root)
+    {
+        while (root->left)
+            root = root->left;
+        return root;
+    }
+
+    Node *remove(int x, Node *root)
+    {
+        if (x < root->value)
+        {
+            root->left = remove(x, root->left);
+        }
+        else if (x > root->value)
+        {
+            root->right = remove(x, root->right);
+        }
+        else
+        {
+            if (!root->left)
+            {
+                Node *temp = root->right;
+                delete (root);
+                return temp;
+            }
+            else if (!root->right)
+            {
+                Node *temp = root->left;
+                delete (root);
+                return temp;
+            }
+            else
+            {
+                Node *temp = findMin(root->right);
+                root->value = temp->value;
+                root->right = remove(temp->value, root->right);
+            }
+        }
+        return root;
+    }
+};
+
+int main()
+{
+    BST bst;
+    bst.root = bst.insert(2, bst.root);
+    bst.root = bst.insert(1, bst.root);
+    bst.root = bst.insert(3, bst.root);
+
+    bst.root = bst.remove(3, bst.root);
+
+    bst.inorder(bst.root);
 }
 ```
 
