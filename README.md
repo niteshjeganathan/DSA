@@ -945,6 +945,105 @@ int main()
 }
 ```
 
+### Heap Sort
+* Time Complexity
+  * Worst Case - O(nlogn)
+  * Best Case - O(nlogn)
+  * Average Case - O(nlogn)
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MaxHeap
+{
+private:
+    vector<int> heap;
+
+    void swap(int &a, int &b)
+    {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    void heapifyUp(int index)
+    {
+        int parent = (index - 1) / 2;
+
+        while (index > 0 && heap[index] > heap[parent])
+        {
+            swap(heap[index], heap[parent]);
+            index = parent;
+            parent = (index - 1) / 2;
+        }
+    }
+
+    void heapifyDown(int index, int size)
+    {
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+        int largest = index;
+
+        if (left < size && heap[left] > heap[largest])
+        {
+            largest = left;
+        }
+
+        if (right < size && heap[right] > heap[largest])
+        {
+            largest = right;
+        }
+
+        if (largest != index)
+        {
+            swap(heap[largest], heap[index]);
+            heapifyDown(largest, size);
+        }
+    }
+
+public:
+    void insert(int x)
+    {
+        heap.push_back(x);
+        heapifyUp(heap.size() - 1);
+    }
+
+    void traverse()
+    {
+        for (auto i : heap)
+        {
+            cout << i << " ";
+        }
+        cout << endl;
+    }
+
+    void sort()
+    {
+        for (int i = 1; i < heap.size(); i++)
+        {
+            swap(heap[0], heap[heap.size() - i]);
+            heapifyDown(0, heap.size() - i);
+        }
+    }
+};
+
+int main()
+{
+    MaxHeap heap;
+    heap.insert(1);
+    heap.insert(2);
+    heap.insert(3);
+    heap.insert(4);
+    heap.insert(5);
+
+    heap.traverse();
+
+    heap.sort();
+    heap.traverse();
+}
+```
+
 ## Trees
 ### Binary Search Tree
 ```c++
