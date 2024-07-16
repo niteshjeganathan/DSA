@@ -11,6 +11,7 @@
 * [Counting Sort](#counting-sort)
 * [Quick Sort](#quick-sort)
 * [Merge Sort](#merge-sort)
+* [Heap Sort](#heap-sort)
 * [Binary Search Tree](#binary-search-tree)
 * [Max Heap](#heap-tree)
 ## Algorithm Analysis
