@@ -1243,3 +1243,213 @@ int main()
 }
 ```
 
+### AVL Tree
+```c++
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int value;
+    int height;
+    Node *left;
+    Node *right;
+
+    Node(int x)
+    {
+        value = x;
+        height = 1;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class AVLTree
+{
+private:
+    int height(Node *root)
+    {
+        if (!root)
+            return 0;
+        return root->height;
+    }
+
+    int max(int a, int b)
+    {
+        return (a > b) ? a : b;
+    }
+
+    int balance(Node *root)
+    {
+        if (!root)
+            return 0;
+        return height(root->left) - height(root->right);
+    }
+
+    Node *rightRotate(Node *root)
+    {
+        Node *t1 = root->left;
+        Node *t2 = t1->right;
+
+        t1->right = root;
+        root->left = t2;
+
+        root->height = max(height(root->left), height(root->right)) + 1;
+        t1->height = max(height(t1->left), height(t1->right)) + 1;
+
+        return t1;
+    }
+
+    Node *leftRotate(Node *root)
+    {
+        Node *t1 = root->right;
+        Node *t2 = t1->left;
+
+        t1->left = root;
+        root->right = t2;
+
+        root->height = max(height(root->left), height(root->right)) + 1;
+        t1->height = max(height(t1->left), height(t1->right)) + 1;
+
+        return t1;
+    }
+
+    Node *findMin(Node *root)
+    {
+        while (root->left)
+            root = root->left;
+
+        return root;
+    }
+
+public:
+    Node *root;
+
+    AVLTree()
+    {
+        root = NULL;
+    }
+
+    Node *insert(int x, Node *root)
+    {
+        if (!root)
+            return new Node(x);
+
+        if (x < root->value)
+        {
+            root->left = insert(x, root->left);
+        }
+        else if (x > root->value)
+        {
+            root->right = insert(x, root->right);
+        }
+        else
+        {
+            return root;
+        }
+
+        root->height = max(height(root->left), height(root->right)) + 1;
+        int bal = balance(root);
+
+        if (bal > 1 && x < root->left->value)
+        {
+            return rightRotate(root);
+        }
+        if (bal < -1 && x > root->right->value)
+        {
+            return leftRotate(root);
+        }
+        if (bal > 1 && x > root->left->value)
+        {
+            root->left = leftRotate(root->left);
+            return rightRotate(root);
+        }
+        if (bal < -1 && x < root->right->value)
+        {
+            root->right = rightRotate(root->right);
+            return leftRotate(root);
+        }
+
+        return root;
+    }
+
+    Node *remove(int x, Node *root)
+    {
+        if (!root)
+            return root;
+
+        if (x < root->value)
+            root->left = remove(x, root->left);
+        else if (x > root->value)
+            root->right = remove(x, root->right);
+        else
+        {
+            if (!root->left)
+            {
+                Node *temp = root->right;
+                delete (root);
+                return temp;
+            }
+
+            if (!root->right)
+            {
+                Node *temp = root->left;
+                delete (root);
+                return temp;
+            }
+
+            Node *temp = findMin(root->right);
+            root->value = temp->value;
+            root->right = remove(root->value, root->right);
+            return root;
+        }
+
+        root->height = max(height(root->left), height(root->right)) + 1;
+        int bal = balance(root);
+
+        if (bal > 1 && x < root->left->value)
+        {
+            return rightRotate(root);
+        }
+        if (bal < -1 && x > root->right->value)
+        {
+            return leftRotate(root);
+        }
+        if (bal > 1 && x > root->left->value)
+        {
+            root->left = leftRotate(root->left);
+            return rightRotate(root);
+        }
+        if (bal < -1 && x < root->right->value)
+        {
+            root->right = rightRotate(root->right);
+            return leftRotate(root);
+        }
+
+        return root;
+    }
+
+    void inorder(Node *root)
+    {
+        if (root)
+        {
+            inorder(root->left);
+            cout << root->value << " ";
+            inorder(root->right);
+        }
+    }
+};
+
+int main()
+{
+    AVLTree tree;
+
+    tree.root = tree.insert(1, tree.root);
+    tree.root = tree.insert(2, tree.root);
+    tree.root = tree.insert(0, tree.root);
+    tree.root = tree.insert(3, tree.root);
+
+    tree.inorder(tree.root);
+}
+```
+
