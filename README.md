@@ -15,6 +15,7 @@
 * [Binary Search Tree](#binary-search-tree)
 * [Max Heap](#heap-tree)
 * [AVL Tree](#avl-tree)
+* [Red Black Tree](#red-black-tree)
 ## Algorithm Analysis
 ### Algorithm
 * Set of rules/instructions that is to be followed to obtain a desired output from a given input
