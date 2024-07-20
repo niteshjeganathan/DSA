@@ -1454,3 +1454,221 @@ int main()
 }
 ```
 
+### Red Black Tree 
+* Assures O(nlogn) for it's operations just like AVL trees
+* But AVL Trees take many rotations at time when the tree is very huge
+* Red Black trees achieve the same time complexity with fewer rotations or at times recolourations
+
+```c++
+#include <iostream>
+using namespace std;
+
+enum Color
+{
+    RED,
+    BLACK
+};
+
+struct Node
+{
+    int value;
+    Color color;
+    Node *left, *right, *parent;
+
+    Node(int data) : value(data), color(RED), left(NULL), right(NULL), parent(NULL) {}
+};
+
+class RedBlackTree
+{
+private:
+    Node *root;
+
+    void rotateLeft(Node *&root, Node *&pt)
+    {
+        cout << "Rotating Left" << endl;
+        Node *pt_right = pt->right;
+        pt->right = pt_right->left;
+
+        if (pt->right != NULL)
+        {
+            pt->right->parent = pt;
+        }
+
+        pt_right->parent = pt->parent;
+
+        if (pt->parent == NULL)
+        {
+            root = pt_right;
+        }
+        else if (pt->parent->right == pt)
+        {
+            pt->parent->right = pt_right;
+        }
+        else if (pt->parent->left == pt)
+        {
+            pt->parent->left = pt_right;
+        }
+
+        pt_right->left = pt;
+        pt->parent = pt_right;
+    }
+
+    void rotateRight(Node *&root, Node *&pt)
+    {
+        cout << "Rotating Right" << endl;
+        Node *pt_left = pt->left;
+        pt->left = pt_left->right;
+
+        if (pt->right != NULL)
+        {
+            pt->right->parent = pt;
+        }
+
+        pt_left->parent = pt->parent;
+
+        if (pt->parent == NULL)
+        {
+            root = pt_left;
+        }
+        else if (pt->parent->left == pt)
+        {
+            pt->parent->left = pt_left;
+        }
+        else if (pt->parent->right == pt)
+        {
+            pt->parent->right = pt_left;
+        }
+
+        pt_left->right = pt;
+        pt->parent = pt_left;
+    }
+
+    void fixViolations(Node *&root, Node *&pt)
+    {
+        Node *parent_pt = NULL;
+        Node *grandparent_pt = NULL;
+
+        while ((pt != root) && (pt->color != BLACK) && pt->parent->color == RED)
+        {
+            parent_pt = pt->parent;
+            grandparent_pt = parent_pt->parent;
+
+            if (parent_pt == grandparent_pt->left)
+            {
+                Node *uncle_ptr = grandparent_pt->right;
+
+                if (uncle_ptr != NULL && uncle_ptr->color == RED)
+                {
+                    grandparent_pt->color = RED;
+                    parent_pt->color = BLACK;
+                    uncle_ptr->color = BLACK;
+
+                    pt = grandparent_pt;
+                }
+                else
+                {
+                    if (pt == parent_pt->right)
+                    {
+                        rotateLeft(root, parent_pt);
+                        pt = parent_pt;
+                        parent_pt = pt->parent;
+                    }
+
+                    rotateRight(root, grandparent_pt);
+                    swap(parent_pt->color, grandparent_pt->color);
+                    pt = parent_pt;
+                }
+            }
+            else
+            {
+                Node *uncle_ptr = grandparent_pt->left;
+
+                if (uncle_ptr != NULL && uncle_ptr->color == RED)
+                {
+                    grandparent_pt->color = RED;
+                    parent_pt->color = BLACK;
+                    uncle_ptr->color = BLACK;
+
+                    pt = grandparent_pt;
+                }
+                else
+                {
+                    if (pt == parent_pt->left)
+                    {
+                        rotateRight(root, parent_pt);
+                        pt = parent_pt;
+                        parent_pt = pt->parent;
+                    }
+
+                    rotateLeft(root, grandparent_pt);
+                    swap(parent_pt->color, grandparent_pt->color);
+                    pt = parent_pt;
+                }
+            }
+        }
+
+        root->color = BLACK;
+    }
+
+public:
+    RedBlackTree() { root = NULL; }
+
+    void insert(int x)
+    {
+        Node *pt = new Node(x);
+        root = BSTInsert(root, pt);
+
+        fixViolations(root, pt);
+    }
+
+    Node *BSTInsert(Node *root, Node *pt)
+    {
+        if (root == NULL)
+        {
+            return pt;
+        }
+
+        if (pt->value < root->value)
+        {
+            root->left = BSTInsert(root->left, pt);
+            root->left->parent = root;
+        }
+        else if (pt->value > root->value)
+        {
+            root->right = BSTInsert(root->right, pt);
+            root->right->parent = root;
+        }
+
+        return root;
+    }
+
+    void inorder()
+    {
+        inorderHelper(root);
+    }
+
+    void inorderHelper(Node *root)
+    {
+        if (root != NULL)
+        {
+            inorderHelper(root->left);
+            cout << root->value << " ";
+            inorderHelper(root->right);
+        }
+    }
+};
+
+int main()
+{
+    RedBlackTree tree;
+
+    tree.insert(10);
+    tree.insert(18);
+    tree.insert(7);
+    tree.insert(15);
+    tree.insert(16);
+
+    tree.inorder();
+}
+```
+
